@@ -1,0 +1,410 @@
+From 21fbf4ed43431fad534cf3913d5af814bff4a9a6 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Wed, 6 May 2026 10:23:11 +0000
+Subject: [PATCH] Rebrand bot to Connor's United States Army group (CUSAR)
+
+Replace all Soviet Union / TSU branding in docs, env example,
+backup script, and roblox README with CUSAR equivalents.
+Database/PM2/package names updated to cusarbot / cusar-bot.
+No runtime code paths changed.
+
+https://claude.ai/code/session_01Du3VUkboot7PvfgjUy2qsh
+---
+ .env.example            |  6 ++--
+ IMPLEMENTATION_GUIDE.md |  2 +-
+ README.md               |  8 ++---
+ SETUP.md                | 75 ++++++++++++++++++++---------------------
+ package.json            |  4 +--
+ roblox/README.md        |  8 ++---
+ scripts/backup.sh       | 10 +++---
+ 7 files changed, 56 insertions(+), 57 deletions(-)
+
+diff --git a/.env.example b/.env.example
+index 7eef6bc..8f30b6b 100644
+--- a/.env.example
++++ b/.env.example
+@@ -18,9 +18,9 @@ DISCORD_CLIENT_ID=your_discord_application_id_here
+ 
+ # PostgreSQL connection string
+ # Format: postgresql://USER:PASSWORD@HOST:PORT/DATABASE
+-# Default database name: tsubot
+-# Default user: tsubot
+-DATABASE_URL=postgresql://tsubot:your_secure_password_here@localhost:5432/tsubot
++# Default database name: cusarbot
++# Default user: cusarbot
++DATABASE_URL=postgresql://cusarbot:your_secure_password_here@localhost:5432/cusarbot
+ 
+ # ====================================
+ # ROBLOX CONFIGURATION
+diff --git a/IMPLEMENTATION_GUIDE.md b/IMPLEMENTATION_GUIDE.md
+index 8eb36ca..f7c93c5 100644
+--- a/IMPLEMENTATION_GUIDE.md
++++ b/IMPLEMENTATION_GUIDE.md
+@@ -40,7 +40,7 @@ This guide explains what's been implemented, how to set it up, and what still ne
+ ### Step 1: Install Dependencies
+ 
+ ```bash
+-cd ~/The-Soviet-Union-bot
++cd ~/Connor-USA-bot
+ npm install
+ ```
+ 
+diff --git a/README.md b/README.md
+index 14fe018..57a311a 100644
+--- a/README.md
++++ b/README.md
+@@ -1,6 +1,6 @@
+-# Discord + Roblox Bot System
++# CUSAR Bot — Connor's United States Army Group
+ 
+-A complete Discord bot with Roblox verification, role binding, points system, and game integration.
++A complete Discord bot for **Connor's United States Army group (CUSAR)**, with Roblox verification, role binding, points system, and game integration.
+ 
+ ## 🌟 Features
+ 
+@@ -73,7 +73,7 @@ sudo -u postgres createdb roblox_bot
+ 2. Open **Terminal** (macOS/Linux) or **Command Prompt** (Windows)
+ 3. Navigate to the bot folder:
+    ```bash
+-   cd path/to/The-Soviet-Union-bot
++   cd path/to/Connor-USA-bot
+    ```
+ 4. **Install dependencies**:
+    ```bash
+@@ -394,7 +394,7 @@ If you're stuck:
+ ## 📁 Project Structure
+ 
+ ```
+-The-Soviet-Union-bot/
++Connor-USA-bot/
+ ├── src/
+ │   ├── commands/       # Discord slash commands
+ │   ├── events/         # Discord event handlers
+diff --git a/SETUP.md b/SETUP.md
+index 710d118..9387a2b 100644
+--- a/SETUP.md
++++ b/SETUP.md
+@@ -1,8 +1,7 @@
+-# TSU Bot - Complete Setup Guide
++# CUSAR Bot - Complete Setup Guide
+ 
+-This guide will walk you through setting up the Discord + Roblox bot from scratch on an Ubuntu VPS.
++This guide will walk you through setting up the **Connor's United States Army group (CUSAR)** Discord + Roblox bot from scratch on an Ubuntu VPS (DigitalOcean droplet).
+ 
+-**Server IP**: `164.92.245.185`
+ **Tech Stack**: Node.js, TypeScript, PostgreSQL, PM2, Discord.js v14, Prisma ORM
+ 
+ ---
+@@ -40,11 +39,11 @@ ssh root@164.92.245.185
+ sudo apt update && sudo apt upgrade -y
+ 
+ # Create a new user (recommended for security)
+-adduser tsubot
+-usermod -aG sudo tsubot
++adduser cusarbot
++usermod -aG sudo cusarbot
+ 
+ # Switch to new user
+-su - tsubot
++su - cusarbot
+ ```
+ 
+ ---
+@@ -83,15 +82,15 @@ sudo systemctl enable postgresql
+ 
+ # Create database and user
+ sudo -u postgres psql <<EOF
+-CREATE DATABASE tsubot;
+-CREATE USER tsubot WITH ENCRYPTED PASSWORD 'your_secure_password_here';
+-GRANT ALL PRIVILEGES ON DATABASE tsubot TO tsubot;
+-\c tsubot
+-GRANT ALL ON SCHEMA public TO tsubot;
++CREATE DATABASE cusarbot;
++CREATE USER cusarbot WITH ENCRYPTED PASSWORD 'your_secure_password_here';
++GRANT ALL PRIVILEGES ON DATABASE cusarbot TO cusarbot;
++\c cusarbot
++GRANT ALL ON SCHEMA public TO cusarbot;
+ EOF
+ 
+ # Test connection
+-psql -U tsubot -d tsubot -h localhost
++psql -U cusarbot -d cusarbot -h localhost
+ # (Enter password when prompted, then type \q to exit)
+ ```
+ 
+@@ -124,7 +123,7 @@ git config --global user.email "your.email@example.com"
+ 
+ 1. Go to [Discord Developer Portal](https://discord.com/developers/applications)
+ 2. Click **"New Application"**
+-3. Name it (e.g., "TSU Bot")
++3. Name it (e.g., "CUSAR Bot")
+ 4. Click **"Create"**
+ 
+ ### Configure Bot
+@@ -159,7 +158,7 @@ git config --global user.email "your.email@example.com"
+ 
+ ### Create/Configure Bot Account
+ 
+-1. Create a new Roblox account for the bot (e.g., "TSUBot")
++1. Create a new Roblox account for the bot (e.g., "CUSARBot")
+ 2. Give this account sufficient permissions in your Roblox group:
+    - **Rank**: High enough to promote/demote members
+    - **Permissions**: Manage members, view group info
+@@ -210,8 +209,8 @@ git config --global user.email "your.email@example.com"
+ cd /home/user
+ 
+ # Clone the repository
+-git clone https://github.com/your-username/The-Soviet-Union-bot.git
+-cd The-Soviet-Union-bot
++git clone https://github.com/your-username/Connor-USA-bot.git
++cd Connor-USA-bot
+ 
+ # Install dependencies
+ npm install
+@@ -235,7 +234,7 @@ DISCORD_TOKEN=your_discord_bot_token_from_step_3
+ DISCORD_CLIENT_ID=your_application_id_from_step_3
+ 
+ # Database Configuration
+-DATABASE_URL=postgresql://tsubot:your_secure_password_here@localhost:5432/tsubot
++DATABASE_URL=postgresql://cusarbot:your_secure_password_here@localhost:5432/cusarbot
+ 
+ # Roblox Configuration
+ ROBLOX_COOKIE=_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.|_YOUR_COOKIE_HERE
+@@ -272,7 +271,7 @@ npx prisma generate
+ npx prisma migrate deploy
+ 
+ # Verify database
+-psql -U tsubot -d tsubot -h localhost -c "\dt"
++psql -U cusarbot -d cusarbot -h localhost -c "\dt"
+ # You should see tables: User, Ban, Warning, Kick, GuildConfig, etc.
+ ```
+ 
+@@ -294,7 +293,7 @@ ls dist/  # Should show compiled .js files
+ 
+ ```bash
+ # Start the bot
+-pm2 start dist/index.js --name tsu-bot
++pm2 start dist/index.js --name cusar-bot
+ 
+ # Save PM2 process list
+ pm2 save
+@@ -311,7 +310,7 @@ pm2 startup
+ pm2 status
+ 
+ # View logs
+-pm2 logs tsu-bot
++pm2 logs cusar-bot
+ 
+ # Check health endpoint
+ curl http://localhost:3000/health
+@@ -437,13 +436,13 @@ Run these commands in your Discord server:
+ pm2 status
+ 
+ # View logs for errors
+-pm2 logs tsu-bot --lines 100
++pm2 logs cusar-bot --lines 100
+ 
+ # Restart bot
+-pm2 restart tsu-bot
++pm2 restart cusar-bot
+ 
+ # If still not working, check environment
+-cd /home/user/The-Soviet-Union-bot
++cd /home/user/Connor-USA-bot
+ node dist/index.js
+ # Look for error messages
+ ```
+@@ -452,7 +451,7 @@ node dist/index.js
+ 
+ ```bash
+ # Re-register commands
+-cd /home/user/The-Soviet-Union-bot
++cd /home/user/Connor-USA-bot
+ node dist/index.js
+ 
+ # Wait 1-2 minutes for Discord to update
+@@ -463,7 +462,7 @@ node dist/index.js
+ 
+ ```bash
+ # Test database connection
+-psql -U tsubot -d tsubot -h localhost
++psql -U cusarbot -d cusarbot -h localhost
+ 
+ # Check if PostgreSQL is running
+ sudo systemctl status postgresql
+@@ -512,7 +511,7 @@ cat .env | grep DATABASE_URL
+ 
+ # Check playtime tracker in Roblox Studio Output
+ # Look for API request logs in PM2:
+-pm2 logs tsu-bot | grep "activity"
++pm2 logs cusar-bot | grep "activity"
+ ```
+ 
+ ---
+@@ -522,24 +521,24 @@ pm2 logs tsu-bot | grep "activity"
+ ### Update Bot
+ 
+ ```bash
+-cd /home/user/The-Soviet-Union-bot
++cd /home/user/Connor-USA-bot
+ git pull
+ npm install
+ npm run build
+-pm2 restart tsu-bot
++pm2 restart cusar-bot
+ ```
+ 
+ ### View Logs
+ 
+ ```bash
+ # Real-time logs
+-pm2 logs tsu-bot
++pm2 logs cusar-bot
+ 
+ # Last 100 lines
+-pm2 logs tsu-bot --lines 100
++pm2 logs cusar-bot --lines 100
+ 
+ # Error logs only
+-pm2 logs tsu-bot --err
++pm2 logs cusar-bot --err
+ ```
+ 
+ ### Database Backup
+@@ -551,10 +550,10 @@ pm2 logs tsu-bot --err
+ # Set up automatic daily backups
+ crontab -e
+ # Add this line:
+-0 2 * * * /home/user/The-Soviet-Union-bot/scripts/backup.sh
++0 2 * * * /home/user/Connor-USA-bot/scripts/backup.sh
+ 
+ # Restore from backup
+-psql -U tsubot -d tsubot -h localhost < /home/user/backups/tsubot_TIMESTAMP.sql
++psql -U cusarbot -d cusarbot -h localhost < /home/user/backups/cusarbot_TIMESTAMP.sql
+ ```
+ 
+ ### Monitor Resources
+@@ -567,7 +566,7 @@ pm2 monit
+ df -h
+ 
+ # Check database size
+-sudo -u postgres psql -c "SELECT pg_size_pretty(pg_database_size('tsubot'));"
++sudo -u postgres psql -c "SELECT pg_size_pretty(pg_database_size('cusarbot'));"
+ ```
+ 
+ ---
+@@ -600,7 +599,7 @@ npm update
+ 
+ 5. **Monitor logs** for suspicious activity:
+ ```bash
+-pm2 logs tsu-bot | grep "401\|403\|error"
++pm2 logs cusar-bot | grep "401\|403\|error"
+ ```
+ 
+ ---
+@@ -609,8 +608,8 @@ pm2 logs tsu-bot | grep "401\|403\|error"
+ 
+ If you encounter issues not covered here:
+ 
+-1. Check bot logs: `pm2 logs tsu-bot`
+-2. Check database: `psql -U tsubot -d tsubot`
++1. Check bot logs: `pm2 logs cusar-bot`
++2. Check database: `psql -U cusarbot -d cusarbot`
+ 3. Test API: `curl http://164.92.245.185:3000/health`
+ 4. Verify Discord bot token: Check Developer Portal
+ 5. Check Roblox Studio Output window for game errors
+@@ -635,7 +634,7 @@ After completing setup, verify:
+ 
+ **🎉 Setup Complete!**
+ 
+-Your TSU Bot is now fully operational with:
++Your CUSAR Bot is now fully operational with:
+ - ✅ Discord bot with 50+ commands
+ - ✅ Roblox integration for bans, kicks, points
+ - ✅ Complete moderation system
+diff --git a/package.json b/package.json
+index 57b170d..75d3242 100644
+--- a/package.json
++++ b/package.json
+@@ -1,7 +1,7 @@
+ {
+-  "name": "discord-roblox-bot",
++  "name": "cusar-bot",
+   "version": "1.0.0",
+-  "description": "Complete Discord + Roblox bot system with verification, role binding, and points system",
++  "description": "Connor's United States Army group (CUSAR) Discord + Roblox bot system with verification, role binding, and points system",
+   "main": "dist/index.js",
+   "type": "module",
+   "scripts": {
+diff --git a/roblox/README.md b/roblox/README.md
+index 9e5a3cd..d8dfc39 100644
+--- a/roblox/README.md
++++ b/roblox/README.md
+@@ -1,6 +1,6 @@
+ # Roblox Game Scripts
+ 
+-This folder contains Lua scripts that integrate your Roblox game with the TSU Bot moderation and points system.
++This folder contains Lua scripts that integrate your Roblox game with the CUSAR Bot moderation and points system.
+ 
+ ## 📂 Prerequisites
+ 
+@@ -107,7 +107,7 @@ HttpService:RequestAsync({
+ 
+ ### Playtime not tracking:
+ - Make sure PlaytimeTracker script is running
+-- Check API logs: SSH into server, run `pm2 logs tsu-bot`
++- Check API logs: SSH into server, run `pm2 logs cusar-bot`
+ - Verify user is verified in Discord with `/verify`
+ 
+ ## 📊 Monitoring
+@@ -115,7 +115,7 @@ HttpService:RequestAsync({
+ To see if scripts are working:
+ 
+ 1. **In Roblox Studio**: View Ω Output (look for `[BanChecker]` messages)
+-2. **On VPS**: `pm2 logs tsu-bot` (see API requests from game)
++2. **On VPS**: `pm2 logs cusar-bot` (see API requests from game)
+ 3. **In Discord**: Use `/modlogs`, `/banlist`, `/points` commands
+ 
+ ## 🔒 Security Notes
+@@ -130,7 +130,7 @@ To see if scripts are working:
+ If you encounter issues:
+ 
+ 1. Check the Roblox Studio Output window for errors
+-2. Check bot logs on VPS: `pm2 logs tsu-bot`
++2. Check bot logs on VPS: `pm2 logs cusar-bot`
+ 3. Verify HTTP requests are enabled in Game Settings
+ 4. Make sure the bot is running: `pm2 status`
+ 5. Test the API manually: `curl http://YOUR_IP:3000/health`
+diff --git a/scripts/backup.sh b/scripts/backup.sh
+index 4bc2c4c..916b205 100755
+--- a/scripts/backup.sh
++++ b/scripts/backup.sh
+@@ -9,8 +9,8 @@
+ # Configuration
+ TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+ BACKUP_DIR="/home/user/backups"
+-DB_NAME="tsubot"
+-DB_USER="tsubot"
++DB_NAME="cusarbot"
++DB_USER="cusarbot"
+ 
+ # Create backup directory if it doesn't exist
+ mkdir -p "$BACKUP_DIR"
+@@ -21,14 +21,14 @@ echo "Timestamp: $TIMESTAMP"
+ echo "========================================="
+ 
+ # Create backup
+-pg_dump -U "$DB_USER" "$DB_NAME" > "$BACKUP_DIR/tsubot_$TIMESTAMP.sql"
++pg_dump -U "$DB_USER" "$DB_NAME" > "$BACKUP_DIR/cusarbot_$TIMESTAMP.sql"
+ 
+ if [ $? -eq 0 ]; then
+     echo "✅ Backup completed successfully!"
+-    echo "📁 File: $BACKUP_DIR/tsubot_$TIMESTAMP.sql"
++    echo "📁 File: $BACKUP_DIR/cusarbot_$TIMESTAMP.sql"
+ 
+     # Get file size
+-    SIZE=$(du -h "$BACKUP_DIR/tsubot_$TIMESTAMP.sql" | cut -f1)
++    SIZE=$(du -h "$BACKUP_DIR/cusarbot_$TIMESTAMP.sql" | cut -f1)
+     echo "📁 Size: $SIZE"
+ else
+     echo "❌ Backup failed!"
